@@ -1,29 +1,7 @@
 <?php
 
-// 重启了
-    // 重启电脑
-    shutdown -h|-r now (安全关机|重启，now可以更改为时间)
-    reboot  重启
-    // 重启Apache服务：
-    /usr/local/apache2/bin/apachectl stop
-    /usr/local/apache2/bin/apachectl start
-    /etc/rc.d/init.d/nginx restart
-
-// 查看一些信息
-    uname -a    内核版本
-    more /etc/issue     系统信息
-    cat /proc/version   系统详情
-    yum(rpm) -qa |grep httpd(nginx/mysql/php)   apache2/nginx/mysql/php
-    httpd(nginx/mysql/php) -v
-    ps aux[|grep nginx]     查看当前系统所有运行的进程
-
-// 安装LAMP
-    1. 安装PHP库
-    2. 安装Apache
-    3. 安装MySQL
-    4. 安装PHP
-    
 // 实用命令
+    kill -s 9 15732
     cd /    // 快速回到根目录
     find -name nginx*conf -exec vim {} \;     // 当前目录下按文件全名查找文件
     rm -rf /weilong     // 直接删除目录/weilong
@@ -35,6 +13,31 @@
     history [-c]    // 查看[删除]历史命令
     tar -[z|j][c|x]vf xxx.tar.gz[bz2] [yyy]    // [格式][压缩|解压]
     unzip xxx.zip
+    df -h  // 查看磁盘空间
+    
+// 重启了
+    // 重启电脑
+    shutdown -h|-r now (安全关机|重启，now可以更改为时间)
+    reboot  重启
+    // 重启Apache服务：
+    /usr/local/apache2/bin/apachectl stop
+    /usr/local/apache2/bin/apachectl start
+    /etc/rc.d/init.d/nginx restart
+
+// 查看一些信息
+    netstat -apn | grep 80    查看80端口被哪些进程占用
+    httpd(nginx/mysql/php) -v    查看软件版本
+    ps aux[|grep nginx]     查看当前系统所有运行的进程
+    uname -a    内核版本
+    cat /etc/issue     系统信息
+    cat /proc/version   系统详情
+    yum(rpm) -qa |grep httpd(nginx/mysql/php)   apache2/nginx/mysql/php
+
+// 安装LAMP
+    1. 安装PHP库
+    2. 安装Apache
+    3. 安装MySQL
+    4. 安装PHP
 
 // 虚拟主机联网，联通主机
 win7 设置无线网络为共享
@@ -80,13 +83,13 @@ CentOS 设置网卡为桥接
     /sbin       命令保存目录（超级用户才能使用的目录）
     /proc       直接写入内存的
     /sys        
-    /usr        系统软件资源目录
-        /usr/bin/       系统命令（普通用户）
-        /usr/sbin/      系统命令（超级用户）
-    /var        系统相关文档内容（系统可变数据保存目录）
-        /var/log/       系统日志位置
-        /var/spool/mail/        系统默认邮箱位置
-        /var/lib/mysql/     默认安装的mysql的库文件目录
+    /usr            系统软件资源目录
+    /usr/bin/       系统命令（普通用户）
+    /usr/sbin/      系统命令（超级用户）
+    /var            系统相关文档内容（系统可变数据保存目录）
+    /var/log/       系统日志位置
+    /var/spool/mail/    系统默认邮箱位置
+    /var/lib/mysql/     默认安装的mysql的库文件目录
 
 //service能识别的目录！直接service httpd start
     /etc/rc.d/init.d/

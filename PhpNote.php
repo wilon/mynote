@@ -1,5 +1,34 @@
 <?php
 
+// 创建空对象
+    $var1 = json_decode('{}');
+    $var2 = (object)[];
+    $var3 = new stdClass();
+    
+// URL、路径解析
+    $parse = parse_url('http://127.0.0.1/test/tp/index.php/home/str');  // URL用此方法
+    $dir   = dirname('C:/xampp/htdocs/test/tp/index.php');
+    $path  = pathinfo('C:/xampp/htdocs/test/tp/index.php'); // *路径用此方法
+    $path2 = pathinfo('http://127.0.0.1/test/tp/index.php/home/str');
+RES:
+    $parse = array(3) {     // **
+        ["scheme"] => string(4) "http"
+        ["host"]   => string(9) "127.0.0.1"
+        ["path"]   => string(27) "/test/tp/index.php/home/str"    // 不准
+    }
+    $dir   = string(23) "C:/xampp/htdocs/test/tp"
+    $path  = array(4) {     // **
+        ["dirname"]   => string(23) "C:/xampp/htdocs/test/tp"
+        ["basename"]  => string(9) "index.php"
+        ["extension"] => string(3) "php"
+        ["filename"]  => string(5) "index"
+    }
+    $path2 = array(3) {     // 注：不准！
+        ["dirname"] => string(39) "http://127.0.0.1/test/tp/index.php/home"
+        ["basename"] => string(3) "str"
+        ["filename"] => string(3) "str"
+    }
+
 // Internet Code 【/】 斜杠
     // ASCII码
     0010 0101    // 二进制
@@ -7,6 +36,7 @@
     47           // 十进制  PHP:ord()chr()按十进制转换
     // URL编码
     %2F          // %十六进制
+    // 函数
     string chr ( int $ascii )    // 返回相对应于 ASCII 所指定的单个字符
     int ord ( string $string )   // 返回第一个字符的ASCII码值
 
@@ -27,15 +57,13 @@
     $result = file_get_contents($url, false, stream_context_create($opts));
 
 // 得到多维数组所有key
-    $fruits = array('sweet' => 'sugar', 'sour' => 'lemon', 'myfruits' => array('a' => 'apple', 'b' => 'banana'));
-    function test_alter(&$item1, $key) {
-        $GLOBALS['keys'][] = $key;
-
-         // 全局变量就用$GLOBALS
-        if (is_array($item1)) array_walk($item1, 'test_alter');
+    function array_all_keys($array) {
+        foreach ($array as $k => $v) {
+            $keys[] = $k;
+            if (is_array($v)) $keys = array_merge($keys, array_all_keys($v));
+        }
+        return $keys;
     }
-    array_walk($fruits, 'test_alter');
-    var_dump($keys);
 
 // 数组按内部值重新排序【usort更新索引为0123，uasort为保持索引】
     $s['a'] = ['name' => 'weilong', 'num' => 3, 'volume' => 98];
@@ -92,7 +120,7 @@
 
 // 创建文件写入日志
     $str = json_encode($arr);
-    $res = preg_replace("#\\\u([0-9a-f]{4})#ie", "iconv('UCS-2BE', 'UTF-8', pack('H4', '\\1'))", $str);
+    $res = preg_replace("#\\\u([0-9a-f]{4})#ie", "iconv('UCS-2BE', 'UTF-8', pack('H4', '\\1'))", $str);   // json中文化
     $time = date("Y-m-d");
     $fp = fopen("./log/catchnews{$time}.log", "a+");
     fwrite($fp, $res . "\r\n");
@@ -124,15 +152,15 @@
     文件权限不足。++
 
 //超全局数组：
-    *$_SERVER["HTTP_REFERER"]--上一页面的url地址
-    $_SERVER["SERVER_NAME"]--服务器的主机名
-    *$_SERVER["SERVER_ADDR"]--服务器端的IP地址
-    $_SERVER["SERVER_PORT"]--服务器端的端口
-    *$_SERVER["REMOTE_ADDR"]--客户端的IP
-    $_SERVER["DOCUMENT_ROOT"]--服务器的web目录路径
-    *$_SERVER["REQUEST_URI"];//--URL地址
-    echo $_GET["name"];
-    echo $_REQUEST["name"]; //获取信息比上面get的会慢一些
+    *$_SERVER['HTTP_REFERER']--上一页面的url地址
+    $_SERVER['SERVER_NAME']--服务器的主机名
+    *$_SERVER['SERVER_ADDR']--服务器端的IP地址
+    $_SERVER['SERVER_PORT']--服务器端的端口
+    *$_SERVER['REMOTE_ADDR']--客户端的IP
+    $_SERVER['DOCUMENT_ROOT']--服务器的web目录路径
+    *$_SERVER['REQUEST_URI'];//--URL地址
+    echo $_GET['name'];
+    echo $_REQUEST['name']; //获取信息比上面get的会慢一些
 
 // 'dir/upload.image.jpg'，找出 .jpg 或者 jpg
     //第1种方法
@@ -160,19 +188,20 @@
 //$a++与++$a
 	$a = 9;
 	$b = $a++;
-	//$a = 10,$b = 9,等价于$b = $a,$a++
+	//$a = 10, $b = 9, 等价于$b = $a, $a++
 	$a = 9;
 	$b = ++$a;
-	//$a=10,$b=10,等价于$a++,$b=$a
+	//$a=10, $b=10, 等价于$a++, $b = $a
 
 // 编码问题
 	1. PHP文件的编码格式， gbk->utf-8
-        $content = iconv("GBK", "UTF-8", $content);     // 推荐
-        $content = mb_convert_encoding($content, "UTF-8","GBK"); 
-	2. PHP文件中：header("Content-type:text/html;Charset=utf-8");
+        $content = iconv('GBK', 'UTF-8', $content);     // 推荐
+        $content = mb_convert_encoding($content, 'UTF-8','GBK'); 
+        $data = eval('return ' . iconv('GBK', 'UTF-8', var_export($data, true)) . ';');    // 数组
+	2. PHP文件中：header('Content-type:text/html;Charset=utf-8');
 	3. 浏览器的查看编码
-	4. <meta charset="utf-8"/>
-	5. mysql_set_charset("utf8");
+	4. <meta charset='utf-8'/>
+	5. mysql_set_charset('utf8');
 	6. mysql> set names utf8;
 
 // empty与isset
@@ -203,6 +232,7 @@
 
 // 口诀
 SVN, 先更新再提交
+Git: 先pull再commit再解决冲突再commit再push
 explode分隔符在前  （trim等在后）
 默认按时吃asc由小到大.... desc由大到小
 运算符优先级，括号最大，乘除加减，判断大小，等否次之，逻辑次之，最后赋值

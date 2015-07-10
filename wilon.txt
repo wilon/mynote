@@ -1,4 +1,6 @@
-Git: 先pull再commit再解决冲突再commit再push
+
+
+Git: 先commit再pull再push （自动解决冲突，不行就手动解决冲突再重复一次）
 SVN: 先更新再提交
 
 Sublime Text 3 插件：

@@ -1,33 +1,47 @@
 <?php
 
 // UCenter通信不成功？ 
-1. 注意：【文件目录】【文件名】【大小写】【配置信息】
-         uc_server/data/cache/apps.php 更新缓存可以更新此文件
-2. UCenter: 主URL——http://demo.99cms.cn/dz/uc_client 该目录下存在./api/ + ./config.inc.php，其他随意
-    --下载：http://www.comsenz.com/downloads/install/ucenter
-3. UClient: config.inc.php 文件配置
-    --下载：http://faq.comsenz.com/library/UCenter/example/examples.zip
-    define('UC_CONNECT', 'mysql');   // 若不是本地，则为null，同时更改UC_IP为UCenter服务器IP地址
-    define('UC_IP', '');
+    1. 注意：【文件目录】【文件名】【大小写】【配置信息】
+        uc_server/data/cache/apps.php 更新缓存可以更新此文件
+    2. UCenter: --下载：http://www.comsenz.com/downloads/install/ucenter 失效
+        配置[主URL]——http://www.***.**/xxxx 该目录下存在./api/ 和 ./config.inc.php
+    3. UClient: --下载：http://faq.comsenz.com/library/UCenter/example/examples.zip
+        config.inc.php 文件配置
+        define('UC_CONNECT', 'mysql');   // 若不是本地，则为null，同时更改UC_IP为UCenter服务器IP地址
+        define('UC_IP', '');
 
-    $dbhost = 'localhost';      // 必填,可配置成ip远程访问
-    $dbuser = '99cms';          // 必填
-    $dbpw   = 'B9D9PcHmPs@';    // 必填
+        // 本地数据库配置信息
+        $dbhost = 'localhost';      // 必填
+        $dbuser = '99cms';          // 必填
+        $dbpw   = 'B9D9PcHmPs@';    // 必填
 
-    $dbname    = '99cms_hb';        // 数据库名
-    $pconnect  = 0;                 // 数据库持久连接 0=关闭, 1=开启
-    $tablepre  = '`ucenter`.uc_';   // 表名前缀, 同一数据库安装多个论坛请修改此处
-    $dbcharset = 'utf-8';           // MySQL 字符集, 可选 'gbk', 'big5', 'utf8', 'latin1', 留空为按照论坛字符集设定
-    
-    //同步登陆 Cookie设置
-    $cookiedomain = '';           // cookie 作用域
-    $cookiepath   = '/';          // cookie 作用路徑
-4. test.php进行测试
-    xml_unserialize($s) $s多空格
+        $dbname    = '99cms_hb';        // 数据库名
+        $pconnect  = 0;                 // 数据库持久连接 0=关闭, 1=开启
+        $tablepre  = '`ucenter`.uc_';   // 表名前缀, 同一数据库安装多个论坛请修改此处
+        $dbcharset = 'utf-8';           // MySQL 字符集, 可选 'gbk', 'big5', 'utf8', 'latin1', 留空为按照论坛字符集设定
+        
+        //同步登陆 Cookie设置
+        $cookiedomain = '';           // cookie 作用域
+        $cookiepath   = '/';          // cookie 作用路徑
+    4. test.php进行测试
+        * xml_unserialize($s) $s可能多空格
+        * 过一阵通信不成功了，可能UCserver的IP变了
 
+// UCenter 积分对接
+    1. 设置客户端： ./api/uc.php@getcreditsettings 如下
+        $credits = array(    // key 是creditId
+                1 => array('O2O', '元'),
+                2 => array('APP', '分'),
+            );
+    2. 设置UCenter后台：积分兑换，设置兑换详情。点击【同步应用的积分设置】刷新
+    3. 接口函数：
+        // uc_user_getcredit( appid,  uid,  creditId)
+        $point = uc_user_getcredit(1, 1, 0);
+        // uc_credit_exchange_request( uid ,  from ,  to ,  toappid ,  amount)
+        // from->to app creditId
+        $res   = uc_credit_exchange_request(1, 1, 1, 1, 80);
 
 // 发帖流程
-
     // 用户名称
     $table  = DB::table('common_member');
     $sql    = "SELECT `username` FROM {$table} WHERE `uid`={$authorid}";

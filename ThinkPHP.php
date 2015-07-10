@@ -1,7 +1,7 @@
 <?php
 
 // 查看放入模板里的所有变量
-    var_dump($this->tVar);
+    var_dump($this->view->tVar);
 
 // 大写字母方法
     M('shop')    // pre_shop 表模型
