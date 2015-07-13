@@ -13,8 +13,7 @@
 // ajax安全验证
     if (!IS_AJAX) halt('请求的页面不存在');
 
-// 更新了表发现$model->
-    add($data)更新的字段插入不了
+// 更新了表发现 $model->add($data)更新的字段插入不了
     清缓存就ok
 
 // include模板导入变量        
@@ -26,8 +25,8 @@
  */
 
 // 某一 字段数值增加\减少
-$User->where('id=5')->setInc('score'); // 用户的积分加1
-$User->where('id=5')->setDec('score',5); // 用户的积分减5
+    $User->where('id=5')->setInc('score'); // 用户的积分加1
+    $User->where('id=5')->setDec('score',5); // 用户的积分减5
 
 // order($order)
     $order = "time desc"; // 单个
