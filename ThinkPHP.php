@@ -11,7 +11,7 @@
     parent::_initialize();  // 继承父类的，否则冲突
 
 // ajax安全验证
-    if (!IS_AJAX) halt('请求的页面不存在');
+    if (!IS_AJAX) halt('请求的页面不存在');   
 
 // 更新了表发现 $model->add($data)更新的字段插入不了
     清缓存就ok
