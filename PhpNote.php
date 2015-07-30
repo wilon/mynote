@@ -48,6 +48,7 @@ RES:
     sprintf("%04d", 13);    // 补全4位：0013
 
 // 通过file_get_content()来post数据
+    return file_get_contents($url, false, stream_context_create(array('http' => array('method' => 'POST', 'content' => http_build_query($data)))));
     $post['uid'] = 1;
     $post['days'] = 30;
     $opts['http']['method']  = 'POST';

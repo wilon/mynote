@@ -1,4 +1,6 @@
+ALI: 2971304926@qq.com  --  taizhoufounder!@#
 
+6月28日、7月5日、7月12日、7月18日
 
 Git: 先commit再pull再push （自动解决冲突，不行就手动解决冲突再重复一次）
 SVN: 先更新再提交
@@ -72,3 +74,5 @@ Everything搜索:
     ?只匹配一个字符
 
     abc ???
+
+import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read())
