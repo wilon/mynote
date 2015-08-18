@@ -1,6 +1,12 @@
 <?php
 
-// 创建空对象
+// 面向对象
+    // 静态方法中只能操作静态属性
+    static function p(){
+        echo self::$country;  √
+        // echo $this->name;  ×
+    }
+    // 创建新对象
     $var1 = json_decode('{}');
     $var2 = (object)[];
     $var3 = new stdClass();
@@ -231,7 +237,7 @@ RES:
 
 	)
 
-// 口诀
+// 速记
 SVN, 先更新再提交
 Git: 先pull再commit再解决冲突再commit再push
 explode分隔符在前  （trim等在后）

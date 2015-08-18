@@ -7,40 +7,52 @@
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no"> 手机模式  -->
     <meta name="Robots" content="none"><!-- 禁止搜索引擎 -->
     <link rel="shortcut icon" href="images/favicon.ico" />
-    <script type="text/javascript" src="http://www.css88.com/jqapi-1.9/js/jquery.min.js"></script>
-<!--     <script type="text/javascript" src="http://jhxt.99cms.cn/Public/jquery.cookie.js"></script>
- -->    <style type="text/css">
+    <script type="text/javascript" src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+    <style type="text/css">
         .maopao {
             height: 100px;
             border: solid;
         }
     </style>
     <script type="text/javascript">
-        for(var i = 0; i < 5; i++) {
+        for (var i = 0; i < 5; i++) {
             setTimeout(function(i) {
-                  console.log(i)
+                  // console.log(i)
             }, 0)
         }
 
+        // 闭包&this理解
+        var name = "The Window"
+        var object = {
+            name : "My Object",
+            getNameFunc : function(){
+                // return this.name
+                return function(){
+                    return this.name
+                }
+            }
+        }
+        alert(object.getNameFunc()())
+        setTimeout(function(i) {
+            var name = '333'
+            alert(this.name)
+        }, 0)
+
         $(function(){
-            // $.cookie('test', '123456')
-            // alert($.cookie('test'))
-            // $.cookie('test', '123456')
-            // alert($.cookie('test'))
             $("#jqtest-btn").click(function() {
                 alert('var1')
                 $("#jqtest").html('<br /><br /><br /><br /><div class="maopao">http://www.baidu.com</div>')
             })
+            // 阻止冒泡
             $("body").on('click', '.maopao', function(e) {
                 e.stopPropagation()
                 alert($(this).html())
-                // window.location.href = $(this).html()
             })
         })
     </script>
 </head>
 <body>
-    <a href="#" onclick="this.style.behavior='url(#default#homepage)'; this.setHomepage ('url');">设为首页</a>
+    <!-- <a href="#" onclick="this.style.behavior='url(#default#homepage)'; this.setHomepage ('url');">设为首页</a> -->
     <!-- jquery冒泡 -->
     <div id="jqtest" class="maopao">
         
@@ -81,11 +93,6 @@
             介绍：<textarea rows="4" cols="20" name="desc">合格的程序员...</textarea><br/><br/>
             <button type="submit">提交</button>
             <button type="reset">重置</button>
-            <script type="text/javascript">
-                $(function(){
-                    $(":input[name='var'").val(text)
-                })
-            </script>
         </form>
     </div>
     <!-- div固定底部方法 -->

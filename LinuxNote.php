@@ -6,15 +6,19 @@
     find -name nginx*conf -exec vim {} \;     // 当前目录下按文件全名查找文件
     rm -rf /weilong     // 直接删除目录/weilong
     mv weilong weicong  // 重命名文件[夹]
-    [grep -i root] /etc/passwd [group]      // 查看[某]用户[组]信息
-    gpasswd -a [-d] 用户名 组名  // 组中把用户加入[删除]
-    chown -R root:root ./api/    // 更改文件及目录下所有文件为所属[用户：组]
-    chmod 770 -R /www   // 更改文件及目录下所有文件权限
     history [-c]    // 查看[删除]历史命令
     tar -[z|j][c|x]vf xxx.tar.gz[bz2] [yyy]    // [格式][压缩|解压]
     unzip xxx.zip
     df -h  // 查看磁盘空间
     
+// 用户和权限
+    passwd    // 修改当前登录用户密码
+    passwd weilong    // 修改weilong用户密码
+    [grep -i root] /etc/passwd [group]      // 查看[某]用户[组]信息
+    gpasswd -a [-d] 用户名 组名  // 组中把用户加入[删除]
+    chown -R root:root ./api/    // 更改文件及目录下所有文件为所属[用户：组]
+    chmod 770 -R /www   // 更改文件及目录下所有文件权限
+
 // 重启了
     // 重启电脑
     shutdown -h|-r now (安全关机|重启，now可以更改为时间)
@@ -110,7 +114,6 @@ CentOS 设置网卡为桥接
 
 //基本常识
     r读4,w写2,x执行1
-
     ctrl+c      强制终止
     ctrl+l      清屏
     ctrl+a      光标移动到行首
