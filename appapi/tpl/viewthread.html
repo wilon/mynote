@@ -1,0 +1,74 @@
+<html>
+    <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+    <link rel="stylesheet" type="text/css" href="../data/cache/style_1_common.css?R61" />
+    <link rel="stylesheet" type="text/css" href="../data/cache/style_1_forum_viewthread.css?R61" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.staticfile.org/amazeui/1.0.0-beta2/css/amazeui.basic.min.css" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.staticfile.org/amazeui/1.0.0-beta2/css/amazeui.min.css" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.staticfile.org/amazeui/1.0.0-beta2/css/amazeui.widgets.min.css" />
+    <style type="text/css">
+        .blockcode {padding: 5px 30px;}
+        .am-table {border: 2px solid rgb(213, 213, 213);}
+        .am-table>tbody>tr>th {min-width: 83px;border: 1px solid #ddd;}
+        .am-table>tbody>tr>td {min-width: 83px;}
+    </style>
+    <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+    </head>
+    <body>
+        <div style="float:left;margin:20px;width:95%;" id="dd" page="1">
+            <div style="float:left;width:100%;margin:0 0 8px 0;"><font size="3"><b><?php echo $subject ?></b></font></div><br/>
+            <?php 
+                
+                foreach ($return as $v) {
+                    echo '<div style="float:left;width:100%;">';
+                    echo '<div style="float:left;"><img width="30px" src="' .$v["authorimg"]. '"></div>';
+                    
+                    echo '<div style="float:left;margin:3px 8px;"><font width="20px" >';
+                    echo $v['author'];
+                    echo '</font></div>';
+                    
+                    echo '<div style="float:left;margin:3px 10px;"><font width="20px" >';
+                    echo $v['dateline'];
+                    echo '</font></div>';
+                    
+                    echo '<div style="float:right;margin:3px 14px;"><font width="20px" >';
+                    echo $v['position'] . "楼";
+                    echo '</font></div>';
+                    
+                    echo '</div>';
+                    echo '<div style="float:left;padding:6px;width:100%;">' .$v['message']. '</div>';
+                    
+                    echo '<hr data-am-widget="divider" style="" class="am-divider am-divider-default"/>';
+                }
+            ?>
+        </div>
+        <script type="text/javascript">
+        $(document).ready(function() {
+            $(window).scroll(function() {
+                // 到底部动作
+            　　if($(window).scrollTop() + 670 >= $(window).height()){
+                    //$("#dd").append("<div style=\" text-align:center; margin-left:auto; margin-right:auto; \" id=\"nuli\">努力加载中...</div>");
+                    page = parseInt($("#dd").attr("page")) + 1;
+            　　　　$.ajax({
+                        type: "post",
+                        url:  './t_forum_viewthread.php',
+                        dataType:'json',
+                        async: false,
+                        data:"tid=<?php echo $_G['tid'];?>"+"&page="+page+"&uid=<?php echo $_G['uid'];?>"+"&plus=1",
+                        success: function(ajax){
+                            // 成功
+                            $("#dd").append(ajax);
+                            $("#dd").attr("page",page);
+                            
+                        },
+                        error: function() {
+                            // alert('error');
+                        },
+                    });
+                    //$("#nuli").remove();
+            　　}
+            });
+        });
+        </script>
+    </body>
+</html>

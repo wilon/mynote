@@ -6,11 +6,11 @@
         echo self::$country;  √
         // echo $this->name;  ×
     }
-    // 创建新对象
+    // 创建新的空对象
     $var1 = json_decode('{}');
     $var2 = (object)[];
     $var3 = new stdClass();
-    
+
 // URL、路径解析
     $parse = parse_url('http://127.0.0.1/test/tp/index.php/home/str');  // URL用此方法
     $dir   = dirname('C:/xampp/htdocs/test/tp/index.php');
@@ -135,9 +135,8 @@ RES:
 
 // 中文的一些问题
     $allen = preg_match("/^[^/x80-/xff]+$/", $s);   // 判断是否是英文
-    $allcn = preg_match("/^[".chr(0xa1)."-".chr(0xff)."]+$/", $s);  // 判断是否是中文
-    // \u9879\u5de1\u89c6 转成 汉字
-    $res = preg_replace("#\\\u([0-9a-f]{4})#ie", "iconv('UCS-2BE', 'UTF-8', pack('H4', '\\1'))", $str);
+    $res = preg_match('/[\x{4e00}-\x{9fa5}]/u', $str);  // 判断是否有中文
+    $res = preg_replace("#\\\u([0-9a-f]{4})#ie", "iconv('UCS-2BE', 'UTF-8', pack('H4', '\\1'))", $str);    // \u9879\u5de1\u89c6 转成 汉字
     // 匹配出汉字，转成UTF-8
     if (preg_match("/[\x7f-\xff]/", $v['name']))
         $v['name'] = iconv("GBK", "UTF-8", $v['name']);
@@ -203,7 +202,7 @@ RES:
 // 编码问题
 	1. PHP文件的编码格式， gbk->utf-8
         $content = iconv('GBK', 'UTF-8', $content);     // 推荐
-        $content = mb_convert_encoding($content, 'UTF-8','GBK'); 
+        $content = mb_convert_encoding($content, 'UTF-8','GBK');
         $data = eval('return ' . iconv('GBK', 'UTF-8', var_export($data, true)) . ';');    // 数组
 	2. PHP文件中：header('Content-type:text/html;Charset=utf-8');
 	3. 浏览器的查看编码
