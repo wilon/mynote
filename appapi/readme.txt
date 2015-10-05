@@ -5,16 +5,16 @@ appapi文件说明
  * 
  * 王伟龙
  * QQ：973885303
- * 2015-1-19 17:10:44
+ * 2015-1-20 11:03:51
  * 
 ---------------------
 
-此文件夹/appapi/为Discuz!接口。适用Discuz!_X2_GBK。
+此文件夹/appapi/为Discuz!接口。适用Discuz! X3.1 GBK。
 
 使用说明:
  * 将此文件夹放入Discuz!根目录下。
  * 浏览器打开 http://Discuz!论坛地址/appapi/api.php 查看接口详情。
- * 错误英文代码参考/appapi/lang_message.php
+ * 错误代码参考/appapi/lang_message.php
 
 接口简介：
    -板块列表

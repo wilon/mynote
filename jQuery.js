@@ -1,10 +1,15 @@
 $(function(){
-/* jquery 里 $('form>input[name=s]').val();方法 table包起来无效 */
+
+    // ReactJS笔记
+    this.setState 每次修改以后，自动调用 this.render 方法，再次渲染组件。
+    this.render 方法必须返回一个包起的标签
+
+    /* jquery 里 $('form>input[name=s]').val();方法 table包起来无效 */
     window.location.reload()
 
     // 下拉框取值
     $("select[name='b_type'] option:selected").val()
-    
+
     // 父子节点选择
     parent()    // 查找父节点，一级
     parent(selector)    // selector为一级父节点的selector
@@ -75,10 +80,10 @@ $(function(){
     for (var i = 0; i < a.length; i++) {    // 遍历
         alert(a[i]);
     };
-    
+
     // 向外(父)查找用parents()，向内(子)find()
     ob.parents(".nodebox").find(".chck").attr("checked",true);
-    
+
     // jQuery操作checkbox
     $(".chck").click(function(){    // checkbox点击事件
         var ob = $(this);
@@ -97,7 +102,7 @@ $(function(){
     $("input:checkbox:checked").each(function(){
         checked.push($(this).val());
     });
-    
+
     // 表单提交，绑定提交按钮事件（不用提交按钮onclick=fun()）
     $(function(){
         $(".btn_submit").click(function(){
@@ -123,7 +128,7 @@ $(function(){
             return false;
         }
     });
-    
+
     // Ajax 传值，__url__需要在原页面处定义
     $.ajax({
         type: "post",
@@ -145,14 +150,14 @@ $(function(){
             }
         },
     });
-    
+
     // 禁用a链接
     javascript:void(0);
-    
+
     // 跳转
     window.location.href="www.baidu.com";
     window.location.reload()    // 刷新本页
-    
+
     // 禁止表单submit提交
     form标签中加：onsubmit="return false"
 

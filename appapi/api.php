@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
+
+
         <title>Discuz!接口</title>
         <meta http-equiv="Content-Type" content="text/html; charset=gbk" />
         <script src="./jquery-1.7.2.min.js"></script>
@@ -9,6 +11,10 @@
             body,td,th
             {
                 font-size:12px;
+            }
+            ul
+            {
+                font-size:14px;
             }
             tt{ font-weight:bold;}
             .pad-left-150{
@@ -42,6 +48,7 @@
         <div>
             <tt>Discuz!接口说明</tt>
             <ul>
+                <li>适用<font color="red">Discuz!_X3.1_GBK</font></li>
                 <li>所有接口采用POST方式传参</li>
                 <li>返回的结果是json数据</li>
             </ul>
@@ -53,7 +60,7 @@
                     <form action="./t_forum_list.php" method="post">
                         <tr>
                             <td width="150px">版块父ID(gid)</td>
-                            <td><input type="text" name="gid" value="0" /></td>
+                            <td><input type="text" name="gid" value="" /></td>
                         </tr>
                         <!-- <tr>
                             <td width="150px">用户ID(uid)</td>
@@ -82,13 +89,13 @@
                             <td>版块父ID
                             </td>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                             <td>uid</td>
-                            <td>弃用</td>
+                            <td>否</td>
                             <td>用户ID
                             </td>
-                        </tr>
-                    </table>                               
+                        </tr> -->
+                    </table>
                 </td>
             </tr>
             <tr>
@@ -98,16 +105,25 @@
     "msg": "OK",
     "data": [
         {
-            "fid": "2",
-            "type": "forum",
-            "name": "新闻",
-            "icon": "http://localhost/hzpd/Discuz_X2_SC_GBK/upload/data/attachment/common/c8/common_2_icon.jpg"
+            "fid": "39",
+            "name": "加州",
+            "icon": "",
+            "threadtypes": {
+                "required": true,
+                "types": {
+                    "1": "吃",
+                    "2": "喝"
+                }
+            }
         },
         {
-            "fid": "36",
-            "type": "forum",
-            "name": "aaa",
-            "icon": ""
+            "fid": "40",
+            "name": "德州",
+            "icon": "",
+            "threadtypes": {
+                "required": null,
+                "types": null
+            }
         }
     ],
     "code": 20000
@@ -117,12 +133,14 @@
                 <td align="right" width="40%">返回参数：</td>
                 <td align="left" width="60%">
                     <table width="100%" border="1" cellspacing="0" cellpadding="0">
-                        <tr><td align="left">msg</td><td>响应回复信息</td></tr>
                         <tr><td align="left">data</td><td>返回数据</td></tr>
-                        <tr><td class="pad-left-50">fid</td><td>ID号</td></tr>
-                        <tr><td class="pad-left-50">type</td><td>类型，分forum（板块ID号，可用1,、4接口）、group（组ID号，只可用1接口）</td></tr>
+                        <tr><td class="pad-left-50">fid</td><td>板块ID号</td></tr>
                         <tr><td class="pad-left-50">name</td><td>板块名称</td></tr>
                         <tr><td class="pad-left-50">icon</td><td>板块图标</td></tr>
+                        <tr><td class="pad-left-50">threadtypes</td><td>板块名颜色</td></tr>
+                        <tr><td class="pad-left-100">required</td><td>板块分类是否必须，用户发帖</td></tr>
+                        <tr><td class="pad-left-100">types</td><td>板块分类，键+值=>分类ID+分类名称</td></tr>
+                        <tr><td align="left">msg</td><td>响应回复信息</td></tr>
                         <tr><td align="left">code</td><td>状态码，20000成功</td></tr>
                     </table></td>
             </tr></table>
@@ -143,7 +161,7 @@
                         </tr>
                         <tr>
                             <td width="150px">每页条数(pagesize)</td>
-                            <td><input type="text" name="pagesize" value="5" /></td>
+                            <td><input type="text" name="pagesize" value="20" /></td>
                         </tr>
                         <!-- <tr>
                             <td width="150px">用户ID(uid)</td>
@@ -184,13 +202,13 @@
                             <td>每条页数
                             </td>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                             <td>uid</td>
-                            <td>弃用</td>
+                            <td>否</td>
                             <td>用户ID
                             </td>
-                        </tr>
-                    </table>                               
+                        </tr> -->
+                    </table>
                 </td>
             </tr>
             <tr>
@@ -205,7 +223,7 @@
             "author": "333",
             "authorid": "2",
             "subject": "九块九大拍卖，不买也看看啊~",
-            "dateline": "01-01 08:33",
+            "dateline": "1411098219",
             "displayorder": "2",
             "special": "0",
             "views": "40",
@@ -217,7 +235,7 @@
             "author": "admin",
             "authorid": "1",
             "subject": "九块九大拍卖，不买也看看啊~",
-            "dateline": "01-01 08:33",
+            "dateline": "1412067654",
             "displayorder": "0"
             "special": "1",
             "views": "20",
@@ -258,7 +276,7 @@
                             <td width="150px">主题ID(tid)</td>
                             <td><input type="text" name="tid" value="" /></td>
                         </tr>
-                        <!-- <tr>
+                       <!--  <tr>
                             <td width="150px">用户ID(uid)</td>
                             <td><input type="text" name="uid" value="2" /></td>
                         </tr> -->
@@ -291,13 +309,13 @@
                             <td>页码
                             </td>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                             <td>uid</td>
-                            <td>弃用</td>
+                            <td>否</td>
                             <td>用户ID
                             </td>
-                        </tr>
-                    </table>                               
+                        </tr> -->
+                    </table>
                 </td>
             </tr>
             <tr>
@@ -359,8 +377,13 @@
                             <td><input type="text" name="fid" value="" /></td>
                         </tr>
                         <tr>
+                            <td width="150px">版块类型ID(typeid)</td>
+                            <td><input type="text" name="typeid" value="" /></td>
+
+                        </tr>
+                        <tr>
                             <td width="150px">用户ID(uid)</td>
-                            <td><input type="text" name="uid" value="" /></td>
+                            <td><input type="text" name="uid" value="100440" /></td>
                         </tr>
                         <tr>
                             <td width="150px">标题(subject)</td>
@@ -368,12 +391,16 @@
                         </tr>
                         <tr>
                             <td width="150px">内容(message)</td>
-                            <td><textarea name="message" rows="6" cols="44">九块九大拍卖，不买也看看啊~九块九大拍卖，不买也看看啊~九块九大拍卖，不买也看看啊~</textarea>
+                            <td><textarea name="message" rows="6" cols="44">
+九块九大拍卖，不买也看看啊~九块九大拍卖，不买也看看啊~九块九大拍卖，不买也看看啊~
+                            </textarea>
                             </td>
                         </tr>
                         <tr>
                             <td width="150px">图片(pic)</td>
-                            <td><textarea name="pic" rows="6" cols="44">/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAIBAQIBAQICAgICAgICAwUDAwMDAwYEBAMFBwYHBwcGBwcICQsJCAgKCAcHCg0KCgsMDAwMBwkODw0MDgsMDAz/2wBDAQICAgMDAwYDAwYMCAcIDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAz/wAARCAAWAB4DASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD9H/iP498L/s1/AO+vPHV1D4P+GHhfTZLzU72d9qx242r5W1Q0sjPu2IifO7MkYOWUV+ZmgfF/45f8FHPEEn7Sng34la74V8HWUt0ngj4f6ZrtzpdxZi2u/slrBND/AMeN9PduN00Tl3nMyW4AhWNV94/4LL/sw+NP2s7jwn4f+3WNj4b1PxFaW9tFeSEaYMxg3F/KNwSZoYWmlGX3CCG6WOPcjGX8fdN8Q6lqvx7uR8Ib64bwzHr1zB4VsdU8prRdLjlW3he7h2tC7tDHD5wIfepCkEJivLyTB1cdU+rp2d+iu7dNNL3f+R6mYYmll9L201zK2ibsr+vkkf0mftIfEf4f/BLwD4g8YeNb7R/D/gvwzfKlzea1CZLFFluI4IZGjCszMZJIl+UEgOTwMmvE9K+JngP9pX4axeOvh3401RPC2oapNZteaVbahZQvdJGkkiRG7giaeH96SsyIUOCm9jEQPG/2Hv2Gb741aXo/ir4ofHjT/izDrFrcDUPCev6JPd2NncvPFKDEbi98tpobi3T50g2soT5QyRsv6D+HPBGrPalvEeqafrOofde4t7f7PHJjpiNmfYADgKGI64wMCuWtGjKcqMJqai2m1pqt9FezT0tcqlzzpQqVFZyV7flrpfTyPjfxv4It4/2d7O806y0nxPrPhdxqnh2z8S2ytp8VpiVWtpiBIzbog5GVfY6xAEqmK/DX4ZeP76x/aY1jVtSkhi1NtUn1e5OmWy29tHNJcebKIIQQsSZb5UHCgKowBmiiuPwMxlarJyqSu+e13vayObxAow9g7Loz7x/4Js/tZ6HD+3tqvhHQLTxBo8nijW5oNZsvNMmk6glxpl5qrXCRGUi1uYprCeLFsscFxFfJvije0V5+8+F//Bcf43/s4fGv4ifCTxFp/gn4jW3w71zUdB0/Vr+K5tdRnjsb+ey3XEiyMszFYozv8tGJLFiTySivQx2X4d8Y4uly2ThGWl1rzzV7qz2SXyRyYDEVY5JhpJ67d9OWPc//2Q==</textarea>
+                            <td><textarea name="pic" rows="6" cols="44">
+/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAIBAQIBAQICAgICAgICAwUDAwMDAwYEBAMFBwYHBwcGBwcICQsJCAgKCAcHCg0KCgsMDAwMBwkODw0MDgsMDAz/2wBDAQICAgMDAwYDAwYMCAcIDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAz/wAARCAAWAB4DASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD9H/iP498L/s1/AO+vPHV1D4P+GHhfTZLzU72d9qx242r5W1Q0sjPu2IifO7MkYOWUV+ZmgfF/45f8FHPEEn7Sng34la74V8HWUt0ngj4f6ZrtzpdxZi2u/slrBND/AMeN9PduN00Tl3nMyW4AhWNV94/4LL/sw+NP2s7jwn4f+3WNj4b1PxFaW9tFeSEaYMxg3F/KNwSZoYWmlGX3CCG6WOPcjGX8fdN8Q6lqvx7uR8Ib64bwzHr1zB4VsdU8prRdLjlW3he7h2tC7tDHD5wIfepCkEJivLyTB1cdU+rp2d+iu7dNNL3f+R6mYYmll9L201zK2ibsr+vkkf0mftIfEf4f/BLwD4g8YeNb7R/D/gvwzfKlzea1CZLFFluI4IZGjCszMZJIl+UEgOTwMmvE9K+JngP9pX4axeOvh3401RPC2oapNZteaVbahZQvdJGkkiRG7giaeH96SsyIUOCm9jEQPG/2Hv2Gb741aXo/ir4ofHjT/izDrFrcDUPCev6JPd2NncvPFKDEbi98tpobi3T50g2soT5QyRsv6D+HPBGrPalvEeqafrOofde4t7f7PHJjpiNmfYADgKGI64wMCuWtGjKcqMJqai2m1pqt9FezT0tcqlzzpQqVFZyV7flrpfTyPjfxv4It4/2d7O806y0nxPrPhdxqnh2z8S2ytp8VpiVWtpiBIzbog5GVfY6xAEqmK/DX4ZeP76x/aY1jVtSkhi1NtUn1e5OmWy29tHNJcebKIIQQsSZb5UHCgKowBmiiuPwMxlarJyqSu+e13vayObxAow9g7Loz7x/4Js/tZ6HD+3tqvhHQLTxBo8nijW5oNZsvNMmk6glxpl5qrXCRGUi1uYprCeLFsscFxFfJvije0V5+8+F//Bcf43/s4fGv4ifCTxFp/gn4jW3w71zUdB0/Vr+K5tdRnjsb+ey3XEiyMszFYozv8tGJLFiTySivQx2X4d8Y4uly2ThGWl1rzzV7qz2SXyRyYDEVY5JhpJ67d9OWPc//2Q==
+                            </textarea>
                             </td>
                         </tr>
                         <tr>
@@ -397,6 +424,11 @@
                             <td>fid</td>
                             <td>是</td>
                             <td>版块ID</td>
+                        </tr>
+                        <tr>
+                            <td>typeid</td>
+                            <td>通过第一个接口查找fid，若threadtypes[required] = true，则此接口id必须，且id号为threadtypes[types]的键。否则不必填写</td>
+                            <td>版块类型ID</td>
                         </tr>
                         <tr>
                             <td>uid</td>
@@ -423,18 +455,15 @@
                             <td>否</td>
                             <td>图片</td>
                         </tr>
-                    </table>                               
+                    </table>
                 </td>
             </tr>
             <tr>
                 <td align="right">返回文本样式:</td>
                 <td align="left"><textarea cols="55" rows="6" readonly="readonly">
 {
-    "msg": "post_newthread_succeed",
-    "data": {
-        "tid": 32,
-        "pid": 64
-    },
+    "data": 78,
+    "msg": "OK",
     "code": 20000
 }
                     </textarea></td></tr>
@@ -442,15 +471,13 @@
                 <td align="right" width="40%">返回参数：</td>
                 <td align="left" width="60%">
                     <table width="100%" border="1" cellspacing="0" cellpadding="0">
-                        <tr><td align="left">msg</td><td>响应回复信息</td></tr>
-                        <tr><td align="left">date</td><td>返回数据：</td></tr>
-                        <tr><td class="pad-left-50">tid</td><td>帖子主题ID</td></tr>
-                        <tr><td class="pad-left-50">pid</td><td>帖子ID</td></tr>
-                        <tr><td align="left">code</td><td>状态码，20000评论成功</td></tr>
+                        <tr><td align="center">data</td><td>返回数据：帖子pid</td></tr>
+                        <tr><td align="center">msg</td><td>响应回复信息</td></tr>
+                        <tr><td align="center">code</td><td>状态码，20000评论成功</td></tr>
                     </table></td>
             </tr></table>
     </div>
-        </div>	
+        </div>
         <hr />
         <div>
             <tt>5. 回复帖子 （./t_forum_replythread.php）POST</tt>
@@ -462,7 +489,7 @@
                         </tr>
                         <tr>
                             <td width="150px">用户ID(uid)</td>
-                            <td><input type="text" name="uid" value="" /></td>
+                            <td><input type="text" name="uid" value="100440" /></td>
                         </tr>
                         <tr>
                             <td width="150px">内容(message)</td>
@@ -473,7 +500,9 @@
                         </tr>
                         <tr>
                             <td width="150px">图片(pic)</td>
-                            <td><textarea name="pic" rows="6" cols="44">/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAIBAQIBAQICAgICAgICAwUDAwMDAwYEBAMFBwYHBwcGBwcICQsJCAgKCAcHCg0KCgsMDAwMBwkODw0MDgsMDAz/2wBDAQICAgMDAwYDAwYMCAcIDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAz/wAARCAAWAB4DASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD9H/iP498L/s1/AO+vPHV1D4P+GHhfTZLzU72d9qx242r5W1Q0sjPu2IifO7MkYOWUV+ZmgfF/45f8FHPEEn7Sng34la74V8HWUt0ngj4f6ZrtzpdxZi2u/slrBND/AMeN9PduN00Tl3nMyW4AhWNV94/4LL/sw+NP2s7jwn4f+3WNj4b1PxFaW9tFeSEaYMxg3F/KNwSZoYWmlGX3CCG6WOPcjGX8fdN8Q6lqvx7uR8Ib64bwzHr1zB4VsdU8prRdLjlW3he7h2tC7tDHD5wIfepCkEJivLyTB1cdU+rp2d+iu7dNNL3f+R6mYYmll9L201zK2ibsr+vkkf0mftIfEf4f/BLwD4g8YeNb7R/D/gvwzfKlzea1CZLFFluI4IZGjCszMZJIl+UEgOTwMmvE9K+JngP9pX4axeOvh3401RPC2oapNZteaVbahZQvdJGkkiRG7giaeH96SsyIUOCm9jEQPG/2Hv2Gb741aXo/ir4ofHjT/izDrFrcDUPCev6JPd2NncvPFKDEbi98tpobi3T50g2soT5QyRsv6D+HPBGrPalvEeqafrOofde4t7f7PHJjpiNmfYADgKGI64wMCuWtGjKcqMJqai2m1pqt9FezT0tcqlzzpQqVFZyV7flrpfTyPjfxv4It4/2d7O806y0nxPrPhdxqnh2z8S2ytp8VpiVWtpiBIzbog5GVfY6xAEqmK/DX4ZeP76x/aY1jVtSkhi1NtUn1e5OmWy29tHNJcebKIIQQsSZb5UHCgKowBmiiuPwMxlarJyqSu+e13vayObxAow9g7Loz7x/4Js/tZ6HD+3tqvhHQLTxBo8nijW5oNZsvNMmk6glxpl5qrXCRGUi1uYprCeLFsscFxFfJvije0V5+8+F//Bcf43/s4fGv4ifCTxFp/gn4jW3w71zUdB0/Vr+K5tdRnjsb+ey3XEiyMszFYozv8tGJLFiTySivQx2X4d8Y4uly2ThGWl1rzzV7qz2SXyRyYDEVY5JhpJ67d9OWPc//2Q==</textarea>
+                            <td><textarea name="pic" rows="6" cols="44">
+/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAIBAQIBAQICAgICAgICAwUDAwMDAwYEBAMFBwYHBwcGBwcICQsJCAgKCAcHCg0KCgsMDAwMBwkODw0MDgsMDAz/2wBDAQICAgMDAwYDAwYMCAcIDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAz/wAARCAAWAB4DASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD9H/iP498L/s1/AO+vPHV1D4P+GHhfTZLzU72d9qx242r5W1Q0sjPu2IifO7MkYOWUV+ZmgfF/45f8FHPEEn7Sng34la74V8HWUt0ngj4f6ZrtzpdxZi2u/slrBND/AMeN9PduN00Tl3nMyW4AhWNV94/4LL/sw+NP2s7jwn4f+3WNj4b1PxFaW9tFeSEaYMxg3F/KNwSZoYWmlGX3CCG6WOPcjGX8fdN8Q6lqvx7uR8Ib64bwzHr1zB4VsdU8prRdLjlW3he7h2tC7tDHD5wIfepCkEJivLyTB1cdU+rp2d+iu7dNNL3f+R6mYYmll9L201zK2ibsr+vkkf0mftIfEf4f/BLwD4g8YeNb7R/D/gvwzfKlzea1CZLFFluI4IZGjCszMZJIl+UEgOTwMmvE9K+JngP9pX4axeOvh3401RPC2oapNZteaVbahZQvdJGkkiRG7giaeH96SsyIUOCm9jEQPG/2Hv2Gb741aXo/ir4ofHjT/izDrFrcDUPCev6JPd2NncvPFKDEbi98tpobi3T50g2soT5QyRsv6D+HPBGrPalvEeqafrOofde4t7f7PHJjpiNmfYADgKGI64wMCuWtGjKcqMJqai2m1pqt9FezT0tcqlzzpQqVFZyV7flrpfTyPjfxv4It4/2d7O806y0nxPrPhdxqnh2z8S2ytp8VpiVWtpiBIzbog5GVfY6xAEqmK/DX4ZeP76x/aY1jVtSkhi1NtUn1e5OmWy29tHNJcebKIIQQsSZb5UHCgKowBmiiuPwMxlarJyqSu+e13vayObxAow9g7Loz7x/4Js/tZ6HD+3tqvhHQLTxBo8nijW5oNZsvNMmk6glxpl5qrXCRGUi1uYprCeLFsscFxFfJvije0V5+8+F//Bcf43/s4fGv4ifCTxFp/gn4jW3w71zUdB0/Vr+K5tdRnjsb+ey3XEiyMszFYozv8tGJLFiTySivQx2X4d8Y4uly2ThGWl1rzzV7qz2SXyRyYDEVY5JhpJ67d9OWPc//2Q==
+                            </textarea>
                             </td>
                         </tr>
                         <tr>
@@ -508,7 +537,7 @@
                                         <td>是</td>
                                         <td>回复内容</td>
                                     </tr>
-                                </table>                               
+                                </table>
                             </td>
                         </tr>
                         <tr>
@@ -524,14 +553,14 @@
                 <td align="right" width="40%">返回参数：</td>
                 <td align="left" width="60%">
                     <table width="100%" border="1" cellspacing="0" cellpadding="0">
-                        <tr><td align="left">msg</td><td>响应回复信息</td></tr>
-                        <tr><td align="left">data</td><td>返回数据：帖子pid</td></tr><tr><td class="pad-left-50">pid</td><td>帖子ID</td></tr>
-                        <tr><td align="left">code</td><td>状态码，20000评论成功</td></tr>
+                        <tr><td align="center">data</td><td>返回数据：帖子pid</td></tr>
+                        <tr><td align="center">msg</td><td>响应回复信息</td></tr>
+                        <tr><td align="center">code</td><td>状态码，20000评论成功</td></tr>
                     </table></td>
                         </tr></table>
                 </div>
-        </div>	
-        <!-- <div>  
+        </div>
+        <!-- <div>
         <hr />
             <tt>6. 添加帖子图片 （./t_forum_threadimg.php）POST</tt>
                 <table>
@@ -571,7 +600,7 @@
                                         <td>是</td>
                                         <td>上传文件</td>
                                     </tr>
-                                </table>                               
+                                </table>
                             </td>
                         </tr>
                         <tr>
@@ -593,7 +622,7 @@
                     </table></td>
                         </tr></table>
                 </div>
-        </div>	 -->													
+        </div>	 -->
     </body>
 </html>
 

@@ -45,11 +45,10 @@
         <script type="text/javascript">
         $(document).ready(function() {
             $(window).scroll(function() {
-                // 到底部动作
-            　　if($(window).scrollTop() + 670 >= $(window).height()){
-                    //$("#dd").append("<div style=\" text-align:center; margin-left:auto; margin-right:auto; \" id=\"nuli\">努力加载中...</div>");
+                // 加载下一页
+                if($(window).scrollTop() + 660 >= $(window).height()){
                     page = parseInt($("#dd").attr("page")) + 1;
-            　　　　$.ajax({
+                    $.ajax({
                         type: "post",
                         url:  './t_forum_viewthread.php',
                         dataType:'json',
@@ -61,12 +60,8 @@
                             $("#dd").attr("page",page);
                             
                         },
-                        error: function() {
-                            // alert('error');
-                        },
                     });
-                    //$("#nuli").remove();
-            　　}
+                }
             });
         });
         </script>

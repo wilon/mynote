@@ -1,5 +1,18 @@
 <?php
 
+// 版本需要注意的
+    $a = $b ?: $c;    // php-v >= 5.3
+
+// 比较好的密码存储处理，sha1/md5都行
+    $salt = sha1(uniqid(mt_rand(), true));
+    $pwd_db = sha1($salt.sha1($pwd_user).KEY);
+
+// 一行代码实现两个值交换，不引入第三个变量
+    $a = 3;
+    $b = 4;
+    list($b, $a) = array($a, $b);
+    $a = $a + $b && $b = $a - $b && $a = $a - $b;
+    $a = $a ^ $b && $b = $b ^ $a && $a = $a ^ $b;
 // 面向对象
     // 静态方法中只能操作静态属性
     static function p(){
@@ -223,18 +236,18 @@ RES:
 // session销毁情况--过时销毁
 
 // 文件上传后print_r($_FILES);
-	Array
-	(
-		[pic] => Array		//picname为前端表单name:<input type="file" name="pic"/>
-			(
-				[name] => iphone5.jpg
-				[type] => image/jpeg
-				[tmp_name] => C:\Windows\Temp\phpA6ED.tmp
-				[error] => 0
-				[size] => 89470
-			)
+    Array
+        (
+            [pic] => Array		//picname为前端表单name:<input type="file" name="pic"/>
+            (
+                [name] => iphone5.jpg
+                [type] => image/jpeg
+                [tmp_name] => C:\Windows\Temp\phpA6ED.tmp
+                [error] => 0
+                [size] => 89470
+            )
 
-	)
+        )
 
 // 速记
 SVN, 先更新再提交

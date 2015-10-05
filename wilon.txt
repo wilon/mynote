@@ -1,39 +1,39 @@
-ALI： 2971304926@qq.com  --  taizhoufounder!@#
-PMA： 99cms_demo(B9D9PcHmPs@)
 
-6月28日、7月5日、7月12日、7月18日
+MyVim
+ * 书签展开、文件缓存
+ * 打开书签、自动cd
 
 Git: 先commit再pull再push （自动解决冲突，不行就手动解决冲突再重复一次）
 SVN: 先更新再提交
 
 Sublime Text 3 插件：
-    Emmet: 
+    Emmet:
         emmet快速编辑html。
-    SublimeLinter: 
+    SublimeLinter:
         自动识别错误，并标红。
         再安装SublimeLinter-php，需配置里，path->windows->"F:\\xampp\\php"，右键设置fill\no clo..
-    Alignment: 
+    Alignment:
         一键代码对齐
-    Snippets: 
+    Snippets:
         自定义代码片段(ST3自带)
-    DocBlockr: 
+    DocBlockr:
         快速注释,（函数上方）输入'/*'或'/**'，按enter。
         设置单行注释按enter不注释"jsdocs_extend_double_slash": false,
-    Insert Nums: 
+    Insert Nums:
         快速插入排列数字、字母，方法如下——
         1. 按住ctrl，鼠标点击左键，使光标活动在多行。若不行则有按键冲突。
         2. 按ctrl+alt+n，OK了，也支持字母，下面输入a 1 。
-    Side Bar: 
+    Side Bar:
         左侧文件右键增强。
-    SublimeCodeIntel: 
+    SublimeCodeIntel:
         alt+左键点击函数，自动跳转
         [ctrl+shift+space]自动提示函数参数
         自动加载提示自写函数名，但对php自带函数不如默认，Open file: Data\Packages\SublimeCodeIntel\SublimeCodeIntel.py, The 1401 line, Modify ''%s〔%s〕'' to '%s'。
-    Tag: 
+    Tag:
         html标签格式化等操作
-    jQuery: 
+    jQuery:
         jQuery方法自动完成，下载snippets包https://github.com/SublimeText/jQuery/，放入/data/packages/user/sbulime-snippets
-    FavoriteFiles: 
+    FavoriteFiles:
         收藏夹。
     Bracket Highlighter
         匹配括号，括号内容操作
@@ -55,8 +55,8 @@ E1D0AE85 A0BBD039 0E9C8D55 E1B89D5D
 B98FC99C 8FAC73EE D2B95564 DF450523
 
 Everything搜索:
-    *此文件名包含abc且有123—— 
-        S:abc 123  
+    *此文件名包含abc且有123——
+        S:abc 123
         R:abcyyy123.php
     此文件名包含abc或者包含123——
         S:abc|123

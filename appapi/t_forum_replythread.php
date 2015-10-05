@@ -17,18 +17,30 @@ include_once libfile('function/forum');
 include_once libfile('function/core');
 
 // 接受数据
-$tid     = intval(trim($_POST['tid']));
-$uid     = intval(trim($_POST['uid']));
-$message = trim($_POST['message']);
-$pic     = trim($_POST['pic']);
-$time    = time();
+$tid      = intval(trim($_POST['tid']));
+$uid      = intval(trim($_POST['uid']));
+$message  = trim($_POST['message']);
+$time     = time();
 
 // 参数判断
-if (empty($tid) || !is_numeric($tid)) showmessage2('tid参数不能为空', '', 45001);
-
-if (empty($uid) || !is_numeric($uid)) showmessage2('uid参数不能为空', '', 45002);
-
-if (empty($message)) showmessage2('message参参数不能为空', '', 45003);
+if (empty($tid) || !is_numeric($tid)) {
+    $data['data'] = "";
+    $data['msg']  = "tid参数不合法！";
+    $data['code'] = 40001;
+    die(json_encode($data));
+}
+if (empty($uid) || !is_numeric($uid)) {
+    $data['data'] = "";
+    $data['msg']  = "uid参数不合法！";
+    $data['code'] = 40002;
+    die(json_encode($data));
+}
+if (empty($message)) {
+    $data['data'] = "";
+    $data['msg']  = "message参数不能为空！";
+    $data['code'] = 40004;
+    die(json_encode($data));
+}
 
 
 global $_G;

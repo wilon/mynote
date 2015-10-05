@@ -1,20 +1,20 @@
 <?php
 /**
- * ·¢²¼Ìû×ÓÖ÷Ìâ£¬¼´·¢²¼Í¶Ëß±¬ÁÏ
+ * å‘å¸ƒå¸–å­ä¸»é¢˜ï¼Œå³å‘å¸ƒæŠ•è¯‰çˆ†æ–™
  *
- * @parameter $fid °å¿éID
- * @parameter $uid ÓÃ»§ID
- * @parameter $subject Ìû×Ó±êÌâ
- * @parameter $message Ìû×ÓÄÚÈÝ
- * @parameter $pics Ìû×ÓÍ¼Æ¬£¨base64Á÷Êý¾Ý£©
+ * @parameter $fid æ¿å—ID
+ * @parameter $uid ç”¨æˆ·ID
+ * @parameter $subject å¸–å­æ ‡é¢˜
+ * @parameter $message å¸–å­å†…å®¹
+ * @parameter $pics å¸–å­å›¾ç‰‡ï¼ˆbase64æµæ•°æ®ï¼‰
  *
- * ·ÂÕÕdiscuz·¢Ìû·½·¨£¬Á÷³ÌÈçÏÂ£º
- * 1. ¼ÓÔØ$_G, "./inc.php"
- * 2. ÅÐ¶ÏÈ¨ÏÞ, "./source/post/forum_post.php"
- * 3. ·¢Ìû·½·¨, "./source/post/post_newthread.php"
- * 4. ·¢ÌûÀà, "./source/post/post_newthread.php"
+ * ä»¿ç…§discuzå‘å¸–æ–¹æ³•ï¼Œæµç¨‹å¦‚ä¸‹ï¼š
+ * 1. åŠ è½½$_G, "./inc.php"
+ * 2. åˆ¤æ–­æƒé™, "./source/post/forum_post.php"
+ * 3. å‘å¸–æ–¹æ³•, "./source/post/post_newthread.php"ï¼ˆä½¿ç”¨4å‘å¸–ç±»ï¼‰
+ * 4. å‘å¸–ç±», "./source/post/post_newthread.php"
  *
- * @Author    ÍõÎ°Áú QQ:973885303
+ * @Author    çŽ‹ä¼Ÿé¾™ QQ:973885303
  * @FileName  t_forum_newthread.php
  * @Date      2014-9-10 10:42:27
  *
@@ -22,7 +22,7 @@
  
 require("./inc.php");
 
-// ½ÓÊÜÊý¾Ý
+// æŽ¥å—æ•°æ®
 $fid      = intval(trim($_POST['fid']));
 $uid      = intval(trim($_POST['uid']));
 $subject  = trim($_POST['subject']);
@@ -30,14 +30,32 @@ $message  = trim($_POST['message']);
 $pic      = trim($_POST['pic']);
 $time     = time();
 
-// ²ÎÊýÅÐ¶Ï
-if (empty($fid) || !is_numeric($fid)) showmessage2('fid²ÎÊý²»ÄÜÎª¿Õ', '', 44101);
-
-if (empty($uid) || !is_numeric($uid)) showmessage2('uid²ÎÊý²»ÄÜÎª¿Õ', '', 44102);
-
-if (empty($subject)) showmessage2('subject²ÎÊý²»ÄÜÎª¿Õ', '', 44103);
-
-if (empty($message)) showmessage2('message²ÎÊý²»ÄÜÎª¿Õ', '', 44104);
+// å‚æ•°åˆ¤æ–­
+if (empty($fid) || !is_numeric($fid)) {
+    $data['data'] = "";
+    $data['msg']  = "fidå‚æ•°ä¸åˆæ³•ï¼";
+    $data['code'] = 40001;
+    echo json_encode($data);
+    exit();
+}
+if (empty($uid) || !is_numeric($uid)) {
+    $data['data'] = "";
+    $data['msg']  = "uidå‚æ•°ä¸åˆæ³•ï¼";
+    $data['code'] = 40002;
+    die(json_encode($data));
+}
+if (empty($subject)) {
+    $data['data'] = "";
+    $data['msg']  = "subjectå‚æ•°ä¸èƒ½ä¸ºç©ºï¼";
+    $data['code'] = 40003;
+    die(json_encode($data));
+}
+if (empty($message)) {
+    $data['data'] = "";
+    $data['msg']  = "messageå‚æ•°ä¸èƒ½ä¸ºç©ºï¼";
+    $data['code'] = 40004;
+    die(json_encode($data));
+}
 
 global $_G;
 $_G['clientip'] = $_SERVER["REMOTE_ADDR"];

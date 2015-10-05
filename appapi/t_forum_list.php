@@ -1,31 +1,36 @@
 <?php
 /**
- * »ñÈ¡°æ¿éÁÐ±í£¬¼´Í¶Ëß±¬ÁÏ²¿ÃÅ°å¿é
+ * èŽ·å–ç‰ˆå—åˆ—è¡¨ï¼Œå³æŠ•è¯‰çˆ†æ–™éƒ¨é—¨æ¿å—
  *
- * @parameter $fup °å¿é¸¸ID
+ * @parameter $fup æ¿å—çˆ¶ID
+ * @parameter $uid ç”¨æˆ·ID
  *
- * @Author    ÍõÎ°Áú QQ:973885303
+ * @Author    çŽ‹ä¼Ÿé¾™ QQ:973885303
  * @FileName  t_forum.php
  * @Date      2014-9-9 14:20:18  
  */
 
-// ×¼±¸
-require("./inc.php");  // $_G¼ÓÔØÓÃ»§ÐÅÏ¢
+// å‡†å¤‡
+require("./inc.php");  // $_GåŠ è½½ç”¨æˆ·ä¿¡æ¯
+
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
 
 require_once libfile('function/forumlist');
 
-$gid = intval(getgpc('gid'));  // »ñÈ¡ÇëÇógid
+$gid = intval($_POST['gid']);  // å¾—åˆ°gid
 
+// $showoldetails = get_index_online_details();
 
-if(!$_G['uid'] && !$gid && $_G['setting']['cacheindexlife'] && !defined('IN_ARCHIVER') && !defined('IN_MOBILE')) {
-	get_index_page_guest_cache();
-}
+// if(!$_G['uid'] && !$gid && $_G['setting']['cacheindexlife'] && !defined('IN_ARCHIVER') && !defined('IN_MOBILE')) {
+// 	get_index_page_guest_cache();
+// }
 
 $newthreads = round((TIMESTAMP - $_G['member']['lastvisit'] + 600) / 1000) * 1000;
-$rsshead = $_G['setting']['rssstatus'] ? ('<link rel="alternate" type="application/rss+xml" title="'.$_G['setting']['bbname'].'" href="'.$_G['siteurl'].'forum.php?mod=rss&auth='.$_G['rssauth']."\" />\n") : '';
 
-$catlist = $forumlist = $sublist = $forumname = $collapseimg = $collapse = array();
-$threads = $posts = $todayposts = $fids = $announcepm = 0;
+$catlist = $forumlist = $sublist = $forumname = $collapse = $favforumlist = array();
+$threads = $posts = $todayposts = $announcepm = 0;
 $postdata = $_G['cache']['historyposts'] ? explode("\t", $_G['cache']['historyposts']) : array(0,0);
 $postdata[0] = intval($postdata[0]);
 $postdata[1] = intval($postdata[1]);
@@ -44,43 +49,221 @@ if(!$metakeywords) {
 	$metakeywords = $navtitle;
 }
 
-if($_G['setting']['indexhot']['status'] && $_G['cache']['heats']['expiration'] < TIMESTAMP) {
-	require_once libfile('function/cache');
-	updatecache('heats');
+// åˆ¤æ–­gid
+if(!$gid && (!defined('FORUM_INDEX_PAGE_MEMORY') || !FORUM_INDEX_PAGE_MEMORY)) {
+
+    // gidé”™è¯¯ï¼Œåˆ¤æ–­æ¿å—å­˜åœ¨
+	$announcements = get_index_announcements();
+
+	$forums = C::t('forum_forum')->fetch_all_by_status(1);
+    //die(print_r($forums));
+	$fids = array();
+	foreach($forums as $forum) {
+		$fids[$forum['fid']] = $forum['fid'];
+	}
+    
+	$forum_access = array();
+	if(!empty($_G['member']['accessmasks'])) {
+		$forum_access = C::t('forum_access')->fetch_all_by_fid_uid($fids, $_G['uid']);
+	}
+
+	$forum_fields = C::t('forum_forumfield')->fetch_all($fids);
+
+	foreach($forums as $forum) {
+		if($forum_fields[$forum['fid']]['fid']) {
+			$forum = array_merge($forum, $forum_fields[$forum['fid']]);
+		}
+		if($forum_access['fid']) {
+			$forum = array_merge($forum, $forum_access[$forum['fid']]);
+		}
+		$forumname[$forum['fid']] = strip_tags($forum['name']);
+		$forum['extra'] = empty($forum['extra']) ? array() : dunserialize($forum['extra']);
+		if(!is_array($forum['extra'])) {
+			$forum['extra'] = array();
+		}
+
+		if($forum['type'] == 'group') {
+
+			if($forum['moderators']) {
+			 	$forum['moderators'] = moddisplay($forum['moderators'], 'flat');
+			}
+			$forum['forumscount'] 	= 0;
+			$catlist[$forum['fid']] = $forum;
+            // åˆ¤æ–­æœ‰æ— å­ç‰ˆå—
+            $gquery = C::t('forum_forum')->fetch_all_info_by_fids($forum['fid']);
+            $query = C::t('forum_forum')->fetch_all_info_by_fids(0, 1, 0, $forum['fid'], 1, 0, 0, 'forum');
+            if(empty($gquery) || empty($query)) continue;
+            
+            // æ•°æ®
+            $data[] = array(
+                'fid' => $forum['fid'],
+                'name' => $forum['name'],
+                //'namecolor' => $forum['extra']['namecolor'],
+                //'icon' => $forum['icon']
+            );
+		}
+	}   
+    
+
+} else {
+    // å¤„ç†gid
+	require_once './source/forum/misc_category.php';
+	
+    //die(print_r($forumlist));
+    if (empty($forumlist)) 
+        showmessage2('æ¿å—ä¸å­˜åœ¨ï¼', '', 41001);
+    foreach ($forumlist as $v) {
+        // å¤„ç†å›¾æ ‡
+        $threadtypes = unserialize($v['threadtypes']);
+        foreach ($threadtypes['types'] as $k2 => $v2) {
+        	$types[] = array(
+					'id'   => $k2,
+					'name' => $v2
+        		);
+        }
+        preg_match("/<img\ssrc=\"(.*?)\"/i", $v['icon'], $icon);
+        $data[] = array(
+			'fid'         => $v['fid'],
+			'name'        => $v['name'],
+			'icon'        => $icon ? $_G['setting']['discuzurl'].'/'.$icon[1] : '',
+			'threadtypes' => array(
+					'required' => $threadtypes['required'],
+					'types'    => $types
+            	),
+			'todayposts'  => $v['todayposts'],
+			'threads'     => $v['threads'],
+			'posts'       => $v['posts'],
+        );
+        unset($types, $icon, $threadtypes);
+    }
 }
-if(defined('IN_MOBILE')) {
-	@include DISCUZ_ROOT.'./source/module/forum/forum_index_mobile.php';
+
+
+showmessage2('OK', $data, 20000);
+/* if(defined('IN_ARCHIVER')) {
+	include loadarchiver('forum/discuz');
+	exit();
+}
+categorycollapse();
+
+if($gid && !empty($catlist)) {
+	$_G['category'] = $catlist[$gid];
+	$forumseoset = array(
+		'seotitle' => $catlist[$gid]['seotitle'],
+		'seokeywords' => $catlist[$gid]['keywords'],
+		'seodescription' => $catlist[$gid]['seodescription']
+	);
+	$seodata = array('fgroup' => $catlist[$gid]['name']);
+	list($navtitle, $metadescription, $metakeywords) = get_seosetting('threadlist', $seodata, $forumseoset);
+	if(empty($navtitle)) {
+		$navtitle = $navtitle_g;
+		$nobbname = false;
+	} else {
+		$nobbname = true;
+	}
+	$_G['fid'] = $gid;
+} */
+
+
+// include template('diy:forum/discuz:'.$gid);  åˆ é™¤åŠ è½½æ¨¡æ¿
+
+
+
+function get_index_announcements() {
+	global $_G;
+	$announcements = '';
+	if($_G['cache']['announcements']) {
+		$readapmids = !empty($_G['cookie']['readapmid']) ? explode('D', $_G['cookie']['readapmid']) : array();
+		foreach($_G['cache']['announcements'] as $announcement) {
+			if(!$announcement['endtime'] || $announcement['endtime'] > TIMESTAMP && (empty($announcement['groups']) || in_array($_G['member']['groupid'], $announcement['groups']))) {
+				if(empty($announcement['type'])) {
+					$announcements .= '<li><span><a href="forum.php?mod=announcement&id='.$announcement['id'].'" target="_blank" class="xi2">'.$announcement['subject'].
+						'</a></span><em>('.dgmdate($announcement['starttime'], 'd').')</em></li>';
+				} elseif($announcement['type'] == 1) {
+					$announcements .= '<li><span><a href="'.$announcement['message'].'" target="_blank" class="xi2">'.$announcement['subject'].
+						'</a></span><em>('.dgmdate($announcement['starttime'], 'd').')</em></li>';
+				}
+			}
+		}
+	}
+	return $announcements;
 }
 
-
-
-// ¶ÁÈ¡°å¿éÐÅÏ¢
-$sql = "SELECT f.fid, f.fup, f.type, f.name, f.threads, f.posts, f.todayposts, f.lastpost, f.inheritedmod, f.domain,
-		f.forumcolumns, f.simple, ff.description, ff.moderators, ff.icon, ff.viewperm, ff.redirect, ff.extra
-		FROM ".DB::table('forum_forum')." f
-		LEFT JOIN ".DB::table('forum_forumfield')." ff USING(fid)
-		WHERE f.status='1' ORDER BY f.type, f.displayorder";
-
-$query = DB::query($sql);
-
-while($forum = DB::fetch($query)) {  // ¶ÁÒ»ÐÐÊý¾Ý
-
-	// ÕÒ³öfupÊÇgidµÄÖµ
-	if ($forum['fup'] == $gid) {
-		$icon = !$forum['icon'] ? '' : $_G['setting']['discuzurl'] . '/data/attachment/common/' . $forum['icon'];
-		$forumlist[] = array(
-				'fid' => $forum['fid'],
-				'type' => $forum['type'],
-				'name' => $forum['name'],
-				'icon' => $icon,
-			);
-
+function get_index_page_guest_cache() {
+	global $_G;
+	$indexcache = getcacheinfo(0);
+	if(TIMESTAMP - $indexcache['filemtime'] > $_G['setting']['cacheindexlife']) {
+		@unlink($indexcache['filename']);
+		define('CACHE_FILE', $indexcache['filename']);
+	} elseif($indexcache['filename']) {
+		@readfile($indexcache['filename']);
+		$updatetime = dgmdate($indexcache['filemtime'], 'H:i:s');
+		$gzip = $_G['gzipcompress'] ? ', Gzip enabled' : '';
+		echo "<script type=\"text/javascript\">
+			if($('debuginfo')) {
+				$('debuginfo').innerHTML = '. This page is cached  at $updatetime $gzip .';
+			}
+			</script>";
+		exit();
 	}
 }
 
-// ½á¹û
-if (empty($forumlist)) {
-	showmessage2('°å¿é²»´æÔÚ£¡', '', 41001);
-} else {
-	showmessage2('OK', $forumlist, 20000);
+function get_index_memory_by_groupid($key) {
+	$enable = getglobal('setting/memory/forumindex');
+	if($enable !== null && memory('check')) {
+		if(IS_ROBOT) {
+			$key = 'for_robot';
+		}
+		$ret = memory('get', 'forum_index_page_'.$key);
+		define('FORUM_INDEX_PAGE_MEMORY', $ret ? 1 : 0);
+		if($ret) {
+			return $ret;
+		}
+	}
+	return array('none' => null);
+}
+
+function get_index_online_details() {
+	$showoldetails = getgpc('showoldetails');
+	switch($showoldetails) {
+		//case 'no': dsetcookie('onlineindex', ''); break;
+		//case 'yes': dsetcookie('onlineindex', 1, 86400 * 365); break;
+	}
+	return $showoldetails;
+}
+
+function do_forum_bind_domains() {
+	global $_G;
+	if($_G['setting']['binddomains'] && $_G['setting']['forumdomains']) {
+		$loadforum = isset($_G['setting']['binddomains'][$_SERVER['HTTP_HOST']]) ? max(0, intval($_G['setting']['binddomains'][$_SERVER['HTTP_HOST']])) : 0;
+		if($loadforum) {
+			dheader('Location: '.$_G['setting']['siteurl'].'/forum.php?mod=forumdisplay&fid='.$loadforum);
+		}
+	}
+}
+
+function categorycollapse() {
+	global $_G, $collapse, $catlist;
+	if(!$_G['uid']) {
+		return;
+	}
+	foreach($catlist as $fid => $forum) {
+		if(!isset($_G['cookie']['collapse']) || strpos($_G['cookie']['collapse'], '_category_'.$fid.'_') === FALSE) {
+			$catlist[$fid]['collapseimg'] = 'collapsed_no.gif';
+			$collapse['category_'.$fid] = '';
+		} else {
+			$catlist[$fid]['collapseimg'] = 'collapsed_yes.gif';
+			$collapse['category_'.$fid] = 'display: none';
+		}
+	}
+
+	for($i = -2; $i <= 0; $i++) {
+		if(!isset($_G['cookie']['collapse']) || strpos($_G['cookie']['collapse'], '_category_'.$i.'_') === FALSE) {
+			$collapse['collapseimg_'.$i] = 'collapsed_no.gif';
+			$collapse['category_'.$i] = '';
+		} else {
+			$collapse['collapseimg_'.$i] = 'collapsed_yes.gif';
+			$collapse['category_'.$i] = 'display: none';
+		}
+	}
 }
