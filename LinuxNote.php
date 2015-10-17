@@ -10,7 +10,8 @@
     tar -[z|j][c|x]vf xxx.tar.gz[bz2] [yyy]    // [格式][压缩|解压]
     unzip xxx.zip
     df -h  // 查看磁盘空间
-    
+    du -sh *  // 查看当前目录下个文件（夹）大小
+
 // 用户和权限
     passwd    // 修改当前登录用户密码
     passwd weilong    // 修改weilong用户密码
@@ -52,7 +53,7 @@ CentOS 设置网卡为桥接
     ifconfig    查看网卡信息
     netstat  -an        查看所有网络连接
     netstat  -tlun      查看tcp和udp协议监听端口
-    
+
     /etc/sysconfig/network-scripts/ifcfg-eth0           网卡信息文件
     /etc/sysconfig/network          主机名配置文件
     /etc/resolv.conf            DNS配置文件
@@ -66,12 +67,12 @@ CentOS 设置网卡为桥接
 //服务和进程
     chkconfig  --list       查看默认安装服务的自启动状态
     ntsysv      所系统默认安装服务进行自启动管理
-    
+
 //linux 时间
     date        查看系统时间
     date  -s  20130220      设定日期
     date  -s  09:30:00      设定时间
-    
+
 //linux常见目录
     /       根目录
     /bin        命令保存目录（普通用户就可以读取的命令）
@@ -86,7 +87,7 @@ CentOS 设置网卡为桥接
     /tmp        临时目录
     /sbin       命令保存目录（超级用户才能使用的目录）
     /proc       直接写入内存的
-    /sys        
+    /sys
     /usr            系统软件资源目录
     /usr/bin/       系统命令（普通用户）
     /usr/sbin/      系统命令（超级用户）
@@ -103,8 +104,8 @@ CentOS 设置网卡为桥接
     -   ls ; echo yes       通通执行
     -   ls && echo yes      与，1执行成功执行2
     -   ls || echo yes      或，1执行不成功执行2
-    -   ls \                换行，下行继续 
-        -l                  相当于ls -l    
+    -   ls \                换行，下行继续
+        -l                  相当于ls -l
 
 //保存错误信息到文件
     >覆盖 >>追加
@@ -129,7 +130,7 @@ CentOS 设置网卡为桥接
     -   rm cc   (删除cc，有是否删除的提示)
     -   rm -f cc    (无提示，直接删除)
     -   rm -r /weilong  (删除目录/weilong，每次行为都需y|s)
-    -   rm -rf /weilong (直接删除目录/weilong) 
+    -   rm -rf /weilong (直接删除目录/weilong)
     3.查看文件内容
         cat [-n] 文件名    (所有内容[显示行号])
         more 文件名    (分屏显示，space|b|q 翻页下|上|退出)
@@ -149,7 +150,7 @@ CentOS 设置网卡为桥接
     -   useradd weilong (建立新用户)
         passwd weilong  (设定密码)
         chown weilong aa    (weilong必须存在)
-        chown weilong:user aa   
+        chown weilong:user aa
 四：帮助命令
     -   man ll      q退出
     -   ls --help
@@ -196,8 +197,8 @@ CentOS 设置网卡为桥接
     1.ping测试网络连通性
         ping -c 次数 ip   (探测网络通畅)
     2.ifconfig  查询本机网络信息
-    
-    
+
+
 //发展
 1969年，肯.汤普森开发UNIX
     常见Unix

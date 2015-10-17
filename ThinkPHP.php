@@ -1,4 +1,7 @@
 <?php
+// 切换数据库CONFIG2后M默认为数据库2
+    M('favoritev2', '99cms_', "DB_CONFIG2")->where(1)->delete();
+    M('flash')->where(1)->find();    // 数据库DB_CONFIG2
 
 // 查看放入模板里的所有变量
     var_dump($this->view->tVar);
@@ -11,12 +14,12 @@
     parent::_initialize();  // 继承父类的，否则冲突
 
 // ajax安全验证
-    if (!IS_AJAX) halt('请求的页面不存在');   
+    if (!IS_AJAX) halt('请求的页面不存在');
 
 // 更新了表发现 $model->add($data)更新的字段插入不了
     清缓存就ok
 
-// include模板导入变量        
+// include模板导入变量
     $this->assign('tpl', 'Home:Index:extend_menu');    <include file="$tpl" />
     <include file="Home:Index:header"/>    /Home/Tpl/Index/header.html
 
@@ -55,7 +58,7 @@
     $join  = "$c on $a.ac_id=$c.ac_id";
     // where里若有重复字段
     $where["$a.ac_id"] = $ac_id;
-    
+
 // field、getField、setField区别
     field 限定显示字段
     getField 取某一字段值，结果必须是一行，不能select
