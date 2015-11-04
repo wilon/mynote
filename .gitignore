@@ -1,3 +1,5 @@
 /Data/Cache
 /Data/Index
 /Data/Local
+/data/*.txt
+/sitemap/*.xml
