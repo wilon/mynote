@@ -1,5 +1,9 @@
-/Data/Cache
-/Data/Index
-/Data/Local
-/data/*.txt
+/config/config_global.php
+/config/config_ucenter.php
 /sitemap/*.xml
+/data/*.txt
+/data/attachment
+/data/diy
+/data/sysdata
+/data/template/*.php
+/data/*.lock
