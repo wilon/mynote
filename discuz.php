@@ -1,10 +1,21 @@
 <?php
 
-// UCenter通信不成功？ 
+// 板块上限-PHP.ini max_input_vars 值限
+
+// 头像问题
+    uid=1370986则保存图片 uc_server/avatar/ 001 / 37 / 09 / 86_01_avatar_*.jpg
+    判断用户头像就是判断图片地址，所以头像保存不上一般都是目录权限问题。
+
+// 页面自定义模块
+    block_get('75');
+    block_display('75');
+
+// UCenter通信不成功？
     1. 注意：【文件目录】【文件名】【大小写】【配置信息】
         uc_server/data/cache/apps.php 更新缓存可以更新此文件
-    2. UCenter: --下载：http://www.comsenz.com/downloads/install/ucenter 失效
-        配置[主URL]——http://www.***.**/xxxx 该目录下存在./api/ 和 ./config.inc.php
+    2. UCenter: --下载：http://www.comsenz.com/downloads/install/ucenter
+        配置[主URL]——http://www.***.**/xxxx
+        该目录下存在./api/ 和 ./config.inc.php
     3. UClient: --下载：http://faq.comsenz.com/library/UCenter/example/examples.zip
         config.inc.php 文件配置
         define('UC_CONNECT', 'mysql');   // 若不是本地，则为null，同时更改UC_IP为UCenter服务器IP地址
@@ -19,7 +30,7 @@
         $pconnect  = 0;                 // 数据库持久连接 0=关闭, 1=开启
         $tablepre  = '`ucenter`.uc_';   // 表名前缀, 同一数据库安装多个论坛请修改此处
         $dbcharset = 'utf-8';           // MySQL 字符集, 可选 'gbk', 'big5', 'utf8', 'latin1', 留空为按照论坛字符集设定
-        
+
         //同步登陆 Cookie设置
         $cookiedomain = '';           // cookie 作用域
         $cookiepath   = '/';          // cookie 作用路徑
@@ -73,7 +84,7 @@
                 'fid' => $newthread['fid'],
                 'dateline' => $newthread['dateline'],
             ));
-            
+
     // 添加forum_post帖子
     $pid = insertpost(array(
             'fid' => $fid,

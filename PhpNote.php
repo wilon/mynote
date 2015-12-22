@@ -1,5 +1,8 @@
 <?php
 
+// 有用的函数
+    http_build_query(query_data);    // 数组转成get str
+
 // 版本需要注意的
     $a = $b ?: $c;    // php-v >= 5.3
 
@@ -104,7 +107,7 @@ RES:
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);  // 是否获取文本，不获取文本则以文件流形式输出
     curl_setopt($curl, CURLOPT_POST, 1);  // 数据发送方式post
     curl_setopt($curl, CURLOPT_POSTFIELDS, $post_data);  // post数据
-    $data = curl_exec($curl);  // 得到字串
+    $response = curl_exec($curl);  // 得到字串
     curl_close($curl);  // 关闭
 
 // 验证图片流

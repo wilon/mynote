@@ -11,6 +11,13 @@
     unzip xxx.zip
     df -h  // 查看磁盘空间
     du -sh *  // 查看当前目录下个文件（夹）大小
+    scp local_file remote_username@remote_ip:remote_folder // 服务器间传文件
+    scp wechatdata remote_username@remote_ip:remote_folder // 服务器间传文件
+    scp wechatdata.tar.gz mt@192.168.1.105:/opt/www/
+    scp root@192.168.120.204:/opt/soft/nginx-0.5.38.tar.gz /opt/soft/
+    scp root@192.168.120.204:/opt/soft/nginx-0.5.38.tar.gz /opt/soft/
+    ssh -p 65032 mt@192.168.1.105
+
 
 // 用户和权限
     passwd    // 修改当前登录用户密码

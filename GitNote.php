@@ -1,7 +1,10 @@
+
 git笔记
 
 ## 克隆一个项目
 git clone https://github.com/Wilon/mynote.git
+git config --global alias.bak 'reset --hard HEAD~1'
+git config --global alias.st status
 
 ## 查看一些信息
 git status    // 项目目录里
@@ -26,6 +29,17 @@ git push origin 库名
 git reset --hard HEAD~1
 git pull
 git reset --hard HEAD~1
+
+#重复的格式
+<<<<<<< HEAD
+        // if ($primaltpl) {
+        //     $file = $_G['mobiletpl'][IN_MOBILE].'/'.$primaltpl;
+        // }
+=======
+        if ($primaltpl) {
+            $file = $_G['mobiletpl'][IN_MOBILE].'/'.$primaltpl;
+        }
+>>>>>>> 8178509b01536d6cc46362c5a159b97ee16a187e
 
 
 SVN
