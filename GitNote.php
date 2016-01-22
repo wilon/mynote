@@ -1,7 +1,7 @@
 
 git笔记
 
-## 克隆一个项目
+## 克隆一个项目，配置
 git clone https://github.com/Wilon/mynote.git
 git config --global alias.bak 'reset --hard HEAD~1'
 git config --global alias.st status
@@ -51,3 +51,11 @@ svn commit -m '说明'    #向上提交
 # 查看一些信息
 svn log    #查看提交日志
 svn log -r 95    #查看某次提交日志
+
+
+id_rsa
+生成
+linux
+win GitTortoise
+    PuTTYgen Generate/Load -> Save .. [key file]
+    Pageant  右键 add key [key file]
