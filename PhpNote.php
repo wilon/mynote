@@ -215,46 +215,17 @@ RES:
 	$b = ++$a;
 	//$a=10, $b=10, 等价于$a++, $b = $a
 
-// 编码问题
-	1. PHP文件的编码格式， gbk->utf-8
-        $content = iconv('GBK', 'UTF-8', $content);     // 推荐
-        $content = mb_convert_encoding($content, 'UTF-8','GBK');
-        $data = eval('return ' . iconv('GBK', 'UTF-8', var_export($data, true)) . ';');    // 数组
-	2. PHP文件中：header('Content-type:text/html;Charset=utf-8');
-	3. 浏览器的查看编码
-	4. <meta charset='utf-8'/>
-	5. mysql_set_charset('utf8');
-	6. mysql> set names utf8;
+//
+	1. PHP文件的编码格式， gbk->utf-8<br>
+        $content = iconv('GBK', 'UTF-8', $content);     // 推荐<br>
+        $content = mb_convert_encoding($content, 'UTF-8','GBK');<br>
+        $data = eval('return ' . iconv('GBK', 'UTF-8', var_export($data, true)) . ';');    // 数组<br>
+	2. PHP文件中：header('Content-type:text/html;Charset=utf-8');<br>
+	3. 浏览器的查看编码<br>
+	4. <meta charset='utf-8'/><br>
+	5. mysql_set_charset('utf8');<br>
+	6. mysql> set names utf8;<br>
 
 // empty与isset
-	empty($a['a']) 	//若$a['a']所等于的值是0或null,则为真！
-	isset($b['b'])	//若$b['b']存在'b'这个键，则为真！
+	empty($a['a']) 	//若$a['a']所等于的值是0或null,则为真！<br> isset($b['b'])	//若$b['b']存在'b'这个键，则为真！
 
-// 点击跳转
-	<input type="button" value="全部" onclick="window.location='index.php'" class="text-but">
-
-// 从哪来回哪去，页面头不能有输出！
-	header("Location:".$_SERVER['HTTP_REFERER']);
-
-// session销毁情况--过时销毁
-
-// 文件上传后print_r($_FILES);
-    Array
-        (
-            [pic] => Array		//picname为前端表单name:<input type="file" name="pic"/>
-            (
-                [name] => iphone5.jpg
-                [type] => image/jpeg
-                [tmp_name] => C:\Windows\Temp\phpA6ED.tmp
-                [error] => 0
-                [size] => 89470
-            )
-
-        )
-
-// 速记
-SVN, 先更新再提交
-Git: 先pull再commit再解决冲突再commit再push
-explode分隔符在前  （trim等在后）
-默认按时吃asc由小到大.... desc由大到小
-运算符优先级，括号最大，乘除加减，判断大小，等否次之，逻辑次之，最后赋值
