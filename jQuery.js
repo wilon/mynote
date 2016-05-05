@@ -45,6 +45,10 @@ $(function(){
         if (top == 0) {};    // 滚动条到达最顶部
         if (top+height+5 > Hheight) {};    // 滚动条到达最底部
     });
+    // 滚动到指定位置
+    $(document.body).animate({"scrollTop": 400});
+    // 计算元素到顶部距离
+    $('#znbj_result').offset().top
 
     // 文本框输入就变化
     $("#rcmoney").focus().keyup(function(){

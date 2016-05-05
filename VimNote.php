@@ -21,7 +21,7 @@
 
 // 删除
     [595]dd     // 向下删除N行
-    g[v]/INSERT.*99cms_news\c/d  // 删除包含[不包含]字串‘INSERT.*99cms_news\c’的行  \c忽略大小写
+    :g[v]/INSERT.*99cms_news\c/d  // 删除包含[不包含]字串‘INSERT.*99cms_news\c’的行  \c忽略大小写
     x          // 删除一个字符
     dw         // d跟移动命令结合
 // 替换

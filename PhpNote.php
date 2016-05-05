@@ -22,6 +22,7 @@
         echo self::$country;  √
         // echo $this->name;  ×
     }
+
     // 创建新的空对象
     $var1 = json_decode('{}');
     $var2 = (object)[];

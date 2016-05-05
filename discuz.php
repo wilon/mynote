@@ -11,11 +11,12 @@
     block_display('75');
 
 // UCenter通信不成功？
-    1. 注意：【文件目录】【文件名】【大小写】【配置信息】
+    1. 注意配置：【文件目录】【文件名】【大小写】【配置信息】
+    2. UCenter服务端: --下载：http://www.comsenz.com/downloads/install/ucenter
         uc_server/data/cache/apps.php 更新缓存可以更新此文件
-    2. UCenter: --下载：http://www.comsenz.com/downloads/install/ucenter
-        配置[主URL]——http://www.***.**/xxxx
-        该目录下存在./api/ 和 ./config.inc.php
+        配置[主URL]：http://www.***.**/xxxx
+        该目录下存在：./api/接口文件.php
+        且配置文件无误： require DISCUZ_ROOT.'./config/config_ucenter.php';
     3. UClient: --下载：http://faq.comsenz.com/library/UCenter/example/examples.zip
         config.inc.php 文件配置
         define('UC_CONNECT', 'mysql');   // 若不是本地，则为null，同时更改UC_IP为UCenter服务器IP地址
