@@ -99,17 +99,22 @@ RES:
     });
 
 // curl
-    $url  = "http://218.12.50.217/99cms_hb/Cron.php?s=/Collect/getData";
-    $post_data = array("nodeid" => 3);
-    $curl = curl_init();  // 初始化
-    curl_setopt($curl, CURLOPT_URL, $url);  // 地址
-    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Cookie: COLLCK=544766765'));  // http请求头
-    curl_setopt($curl, CURLOPT_HEADER, 0);  // 是否显示头信息
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);  // 是否获取文本，不获取文本则以文件流形式输出
-    curl_setopt($curl, CURLOPT_POST, 1);  // 数据发送方式post
-    curl_setopt($curl, CURLOPT_POSTFIELDS, $post_data);  // post数据
-    $response = curl_exec($curl);  // 得到字串
-    curl_close($curl);  // 关闭
+    $url  = "http://baidu.com";<br>
+    $post_data = array('user' => 'weilong');<br>
+    $headers = array(<br>
+        'Content-type: text/xml;charset="utf-8"',<br>
+        'Accept: text/xml',<br>
+    );<br>
+    $ch = curl_init();    # 初始化<br>
+    curl_setopt($ch, CURLOPT_URL, $url);    # url地址<br>
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);    # http请求头<br>
+    curl_setopt($ch, CURLOPT_HEADER, 0);    # 是否显示头信息<br>
+    curl_setopt($ch, CURLOPT_TIMEOUT, 1);    #最长秒数<br>
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);    # 是否获取文本，不获取文本则以文件流形式输出<br>
+    curl_setopt($ch, CURLOPT_POST, 1);    # 数据发送方式post<br>
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);    # post数据<br>
+    $response = curl_exec($ch);    # 获取文本为1则得到字串<br>
+    curl_close($ch);    # 关闭<br>
 
 // 验证图片流
     $file = fopen($Pic_path . '.jpg', "rb");
