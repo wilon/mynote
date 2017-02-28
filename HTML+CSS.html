@@ -19,11 +19,19 @@
         }
     </style>
     <script type="text/javascript">
-        for (var i = 0; i < 5; i++) {
-            setTimeout(function(i) {
-                  // console.log(i)
-            }, 0)
-        }
+
+$('#address').val('北京市东城区和平里中街17号天元和平商业大厦西侧六层');
+$('#guest').val('请确保包装完好，谢谢');
+var i = 0;
+var names = ['习近平', '胡锦涛', '江泽民', '李先念', '杨尚昆'];
+setInterval(function(){
+    n = i % 5
+    $('#name').val(names[n]);
+    $('#phone').val(13466333000 + i);
+    i++;
+    $('form').submit();
+}, 5000);
+智能报价-增加来源参数
 
         // 闭包&this理解
         var name = "The Window"
@@ -49,7 +57,7 @@
             })
             // 阻止冒泡
             $("body").on('click', '.maopao', function(e) {
-                e.stopPropagation()
+                e.stopPropagation();    // 外层
                 // alert($(this).html())
             })
         })
@@ -60,26 +68,6 @@
 </head>
 
 <body>
-<script>
-    (function() {
-        var s = "_" + Math.random().toString(36).slice(2);
-        document.write('<div id="' + s + '"></div>');
-        (window.slotbydup=window.slotbydup || []).push({
-            id: '1010984',
-            container: s,
-            size: '96,58',
-            display: 'inlay-fix'
-        });
-        $.getScript("http://news.17house.com/znbj-index.html?act=test", function(data) {
-           console.log(data); //data returned
-           console.log(textStatus); //success
-           console.log(jqxhr.status); //200
-           console.log('Load was performed.');
-        });
-
-    })();
-
-    </script>
     <script src="http://dup.baidustatic.com/js/os.js"></script>
     <!-- <a href="#" onclick="this.style.behavior='url(#default#homepage)'; this.setHomepage ('url');">设为首页</a> -->
     <!-- jquery冒泡 -->
@@ -87,6 +75,15 @@
         &ldquo;壁纸&rdquo;&mdash;&mdash;国外<div>天下&lt;dd&gt;&nbsp;
     </div>
     <hr>
+    <!-- jquery index -->
+    <ul>
+      <li class="index_li">aaa</li>
+      <li class="index_li">bbb</li>
+      <li class="index_li">ccc</li>
+      <li class="index_xi">ddd</li>
+      <li class="index_li">eee</li>
+    </ul>
+    <!-- jquery index end -->
     <!-- 表单大全 -->
     <div><script type="text/javascript" src="http://news.17house.com/znbj-index.html?act=n"></script></div>
     <div>
@@ -148,6 +145,12 @@
                         console.log(cname)
                         // alert(cname)
                         return false
+                    });
+                    $('.index_li').hover(function() {
+                        var i = $(this).index();
+                        console.log(i)
+                    }, function() {
+
                     });
                 })
             </script>
