@@ -57,6 +57,7 @@
 ```shell
     [num]dd    # 向下删除[num]1行
     :g[v]/INSERT.*99cms_news\c/d    # 删除包含[不包含]字串‘INSERT.*99cms_news\c’的行  \c忽略大小写
+    :g/^\s*$/d    # 删除空行
     :n,$s/vivian/sky/g    # 替换第 n 行开始到最后一行中每一行所有 vivian 为 sky
     :%s/,/\r/g
 ```

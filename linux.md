@@ -68,6 +68,7 @@
 ### docker help
 ```shell
     service docker start    # 启动服务
+    systemctl enable docker    # Centos 开机启动
     # docker CONTAINER 镜像
     docker pull <REPOSITORY>
     docker images    #  查看安装的镜像
