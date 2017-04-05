@@ -3,30 +3,10 @@
 // 有用的函数
     http_build_query(query_data);    // 数组转成get str
 
-// 版本需要注意的
-    $a = $b ?: $c;    // php-v >= 5.3
 
-// 比较好的密码存储处理，sha1/md5都行
-    $salt = sha1(uniqid(mt_rand(), true));
-    $pwd_db = sha1($salt.sha1($pwd_user).KEY);
-
-// 一行代码实现两个值交换，不引入第三个变量
-    $a = 3;
-    $b = 4;
-    list($b, $a) = array($a, $b);
-    $a = $a + $b && $b = $a - $b && $a = $a - $b;
-    $a = $a ^ $b && $b = $b ^ $a && $a = $a ^ $b;
 // 面向对象
-    // 静态方法中只能操作静态属性
-    static function p(){
-        echo self::$country;  √
-        // echo $this->name;  ×
-    }
 
-    // 创建新的空对象
-    $var1 = json_decode('{}');
-    $var2 = (object)[];
-    $var3 = new stdClass();
+
 
 // URL、路径解析
     $parse = parse_url('http://127.0.0.1/test/tp/index.php/home/str');  // URL用此方法
@@ -80,23 +60,9 @@ RES:
     $url = 'http://' . $_SERVER['HTTP_HOST'] . __ROOT__ . '/api.php?s=/Glucose/daysGlucose';
     $result = file_get_contents($url, false, stream_context_create($opts));
 
-// 得到多维数组所有key
-    function array_all_keys($array) {
-        foreach ($array as $k => $v) {
-            $keys[] = $k;
-            if (is_array($v)) $keys = array_merge($keys, array_all_keys($v));
-        }
-        return $keys;
-    }
 
-// 数组按内部值重新排序【usort更新索引为0123，uasort为保持索引】
-    $s['a'] = ['name' => 'weilong', 'num' => 3, 'volume' => 98];
-    $s['b'] = ['name' => 'weimong', 'num' => 2, 'volume' => 88];
-    $s['c'] = ['name' => 'weicong', 'num' => 1, 'volume' => 88];
-    uasort($s, function($a, $b) {
-        if ($a['num'] == $b['num']) return 0;
-        return ($a['num'] > $b['num']) ? 1 : -1;
-    });
+
+
 
 // curl
     $url  = "http://baidu.com";<br>
@@ -133,12 +99,7 @@ RES:
     $im = @imagecreatefromstring(base64_decode($imgs_data));
     if($im == FALSE) die('error');
 
-// PHP语言结构，非函数，比函数快
-    echo(); print(); die(); isset(); unset();
-    include(); require();
-    array(); list(); empty()
-    注意，include_once()是函数;
-    注意，require_once()是函数;
+
 
 // 静态方法和非静态
     区别：就是在调用静态方法时，我们不需要创建类的实例。
